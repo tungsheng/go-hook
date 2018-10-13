@@ -1,0 +1,21 @@
+# dependencies
+node_modules
+
+# production
+build
+
+# misc
+.DS_Store
+npm-debug.log
+yarn-error.log
+.yarn-cache
+.env
+.assets
+*.swp
+bin
+template/ab0x.go
+assets/ab0x.go
+*.tar.gz
+rev
+storage/*
+uploads/*

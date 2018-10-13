@@ -1,0 +1,13 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "tCX8YwOCia4sFzXUspBySZjm9bI=",
+			"path": "github.com/segmentio/go-env",
+			"revision": "ea0600a7760cd15ccca9057be4a87d68e95ee876",
+			"revisionTime": "2015-05-18T15:56:47Z"
+		}
+	],
+	"rootPath": "github.com/go-hook"
+}
