@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  hook-server:
+    container_name: hook-server
+    image: golang:alpine
+    volumes:
+      - ./:/go/src/app
+    working_dir: /go/src/app
+    ports:
+      - 9091:9091
+    command: go run main.go
