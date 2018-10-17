@@ -16,7 +16,7 @@ import (
 )
 
 const (
-	path = "/webhooks"
+	path = "/webhook"
 	url  = "https://discordapp.com/api/webhooks/495073722135478293/q__VqkG-ZSirBEXRHaVpZpJZsbK8cvsY0XMKPIxAgqrNRYcM-B1FRrpYwBVYMnmj_G7j"
 )
 
