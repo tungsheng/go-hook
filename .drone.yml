@@ -13,7 +13,7 @@ pipeline:
   scp_dev:
     image: appleboy/drone-scp
     pull: true
-    host: dev.tonka.sh
+    host: hook.tonka.sh
     port: 22
     username: deploy
     command_timeout: 120
@@ -30,7 +30,7 @@ pipeline:
   ssh_dev:
     image: appleboy/drone-ssh
     pull: true
-    host: dev.tonka.sh
+    host: hook.tonka.sh
     port: 22
     username: deploy
     command_timeout: 120
