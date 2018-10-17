@@ -10,7 +10,6 @@ import (
 	"time"
 
 	"github.com/joho/godotenv"
-	_ "github.com/joho/godotenv/autoload"
 	"github.com/rs/zerolog/log"
 	"github.com/segmentio/go-env"
 	"gopkg.in/go-playground/webhooks.v5/bitbucket"

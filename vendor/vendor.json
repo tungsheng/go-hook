@@ -3,10 +3,46 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "I+g5iffd0bNDiI8swxzsHiJxBz0=",
+			"path": "github.com/joho/godotenv",
+			"revision": "c0b86d615e06d6fa5f869364d68f774ba49a86e3",
+			"revisionTime": "2018-09-27T05:32:03Z"
+		},
+		{
+			"checksumSHA1": "+MU/wkkxzd99mICD4t9Vm6WRosU=",
+			"path": "github.com/rs/zerolog",
+			"revision": "8e36cbf881d3eadd0c6455d55588af60c7cc4736",
+			"revisionTime": "2018-09-28T01:11:43Z"
+		},
+		{
+			"checksumSHA1": "73NzoKIiJU6h4v6hg9eM4t7V/zw=",
+			"path": "github.com/rs/zerolog/internal/cbor",
+			"revision": "8e36cbf881d3eadd0c6455d55588af60c7cc4736",
+			"revisionTime": "2018-09-28T01:11:43Z"
+		},
+		{
+			"checksumSHA1": "e0b96rsdqg3fNtCDQOdZA4M+MNo=",
+			"path": "github.com/rs/zerolog/internal/json",
+			"revision": "8e36cbf881d3eadd0c6455d55588af60c7cc4736",
+			"revisionTime": "2018-09-28T01:11:43Z"
+		},
+		{
+			"checksumSHA1": "GrCvxT3h3vAVIwGe8bFAilXjgVA=",
+			"path": "github.com/rs/zerolog/log",
+			"revision": "8e36cbf881d3eadd0c6455d55588af60c7cc4736",
+			"revisionTime": "2018-09-28T01:11:43Z"
+		},
+		{
 			"checksumSHA1": "tCX8YwOCia4sFzXUspBySZjm9bI=",
 			"path": "github.com/segmentio/go-env",
 			"revision": "ea0600a7760cd15ccca9057be4a87d68e95ee876",
 			"revisionTime": "2015-05-18T15:56:47Z"
+		},
+		{
+			"checksumSHA1": "pCo1FMstATv+5hjkdnlTdaRPMyo=",
+			"path": "gopkg.in/go-playground/webhooks.v5/bitbucket",
+			"revision": "3fda9e72e1794aa20baca8d0edf5c73888d02eba",
+			"revisionTime": "2018-08-09T19:30:00Z"
 		}
 	],
 	"rootPath": "github.com/go-hook"

@@ -17,7 +17,7 @@ pipeline:
     port: 22
     username: deploy
     command_timeout: 120
-    target: /home/deploy/drone/${DRONE_REPO}
+    target: /home/deploy/drone-github/${DRONE_REPO}
     secrets:
       - source: deploy_key
         target: scp_key
@@ -39,7 +39,7 @@ pipeline:
         target: ssh_key
     script:
       - rm -rf ${DRONE_REPO} && mkdir -p ${DRONE_REPO}
-      - tar -zxmf /home/deploy/drone/${DRONE_REPO}/release.tar.gz -C ${DRONE_REPO}
+      - tar -zxmf /home/deploy/drone-github/${DRONE_REPO}/release.tar.gz -C ${DRONE_REPO}
       - cd ${DRONE_REPO} && docker-compose up
     when:
       branch: master
