@@ -1,7 +1,7 @@
 DIST := dist
-EXECUTABLE := inn
+EXECUTABLE := go-hook
 
-DEPLOY_ACCOUNT := fullinn
+DEPLOY_ACCOUNT := tonka
 DEPLOY_IMAGE := $(EXECUTABLE)
 GOFMT ?= gofmt "-s"
 

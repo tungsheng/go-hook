@@ -9,6 +9,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"github.com/rs/zerolog/log"
 	"github.com/segmentio/go-env"
@@ -16,8 +17,7 @@ import (
 )
 
 const (
-	path = "/webhooks"
-	url  = "https://discordapp.com/api/webhooks/495073722135478293/q__VqkG-ZSirBEXRHaVpZpJZsbK8cvsY0XMKPIxAgqrNRYcM-B1FRrpYwBVYMnmj_G7j"
+	url = "https://discordapp.com/api/webhooks/495073722135478293/q__VqkG-ZSirBEXRHaVpZpJZsbK8cvsY0XMKPIxAgqrNRYcM-B1FRrpYwBVYMnmj_G7j"
 )
 
 type discordMsg struct {
@@ -55,9 +55,16 @@ func main() {
 	secret, _ := env.Get("BIT_SECRET")
 	hook, _ := bitbucket.New(bitbucket.Options.UUID(secret))
 
-	http.HandleFunc(path, func(w http.ResponseWriter, r *http.Request) {
-		message := "Webhooks reached!"
-		log.Print(message)
+	r := gin.Default()
+
+	r.GET("/ping", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "pong",
+		})
+	})
+
+	r.POST("/discord/:id/:token", func(c *gin.Context) {
+		log.Print("Webhooks reached!")
 
 		payload, err := hook.Parse(
 			r,
@@ -72,13 +79,16 @@ func main() {
 			bitbucket.PullRequestCommentUpdatedEvent,
 			bitbucket.PullRequestCommentDeletedEvent,
 		)
+
 		if err != nil {
 			if err == bitbucket.ErrEventNotFound {
 				// ok event wasn;t one of the ones asked to be parsed
 			}
 		}
 
-		url := "https://discordapp.com/api/webhooks/495073722135478293/q__VqkG-ZSirBEXRHaVpZpJZsbK8cvsY0XMKPIxAgqrNRYcM-B1FRrpYwBVYMnmj_G7j"
+		id := c.Param("id")
+		token := c.Param("token")
+		url := fmt.Sprintf("https://discordapp.com/api/webhooks/%s/%s", id, token)
 		data := discordMsg{
 			Content:  "test content",
 			Username: "bitbucket",
@@ -113,7 +123,5 @@ func main() {
 		}
 	})
 
-	if err := http.ListenAndServe(":9091", nil); err != nil {
-		panic(err)
-	}
+	r.Run(":9091")
 }
