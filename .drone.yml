@@ -46,7 +46,7 @@ pipeline:
   scp_dev:
     image: appleboy/drone-scp
     pull: true
-    host: dev.fullinn.tw
+    host: hook.tonka.sh
     port: 22
     username: deploy
     target: /home/deploy/drone/${DRONE_REPO}
@@ -62,7 +62,7 @@ pipeline:
   ssh_dev:
     image: appleboy/drone-ssh
     pull: true
-    host: dev.fullinn.tw
+    host: hook.tonka.sh
     port: 22
     username: deploy
     command_timeout: 120
