@@ -17,13 +17,6 @@ pipeline:
       - cp env/env.drone .env
       - make generate
 
-  test:
-    image: golang:1.11
-    pull: true
-    group: testing
-    commands:
-      - make test
-
   build:
     image: golang:1.11
     pull: true
