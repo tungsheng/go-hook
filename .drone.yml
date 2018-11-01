@@ -14,7 +14,6 @@ pipeline:
     pull: true
     group: build
     commands:
-      - make embedmd
       - make fmt-check
       # - make gtfmt-check
       - make misspell-check
