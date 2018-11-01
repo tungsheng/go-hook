@@ -83,6 +83,18 @@
 			"revisionTime": "2018-11-01T08:12:43Z"
 		},
 		{
+			"checksumSHA1": "/7N4ZxcywtNg5mylMZ6Y7izCeg8=",
+			"path": "github.com/go-hook/router/middleware/header",
+			"revision": "7b2739ccd7b6da34e57e331e7ae0223b71d4cd43",
+			"revisionTime": "2018-11-01T08:14:23Z"
+		},
+		{
+			"checksumSHA1": "13bmDS5t14g58L1JEkpW0lNF6gc=",
+			"path": "github.com/go-hook/router/middleware/logger",
+			"revision": "7b2739ccd7b6da34e57e331e7ae0223b71d4cd43",
+			"revisionTime": "2018-11-01T08:14:23Z"
+		},
+		{
 			"checksumSHA1": "GaJLoEuMGnP5ofXvuweAI4wx06U=",
 			"path": "github.com/golang/protobuf/proto",
 			"revision": "d3de96c4c28ef8af3aa1a892fc481e0f103c01ff",
