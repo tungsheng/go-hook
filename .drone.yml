@@ -9,15 +9,37 @@ clone:
     tags: true
 
 pipeline:
+  generate:
+    image: golang:1.11
+    pull: true
+    group: build
+    commands:
+      - cp env/env.drone .env
+      - make generate
+
+  test:
+    image: golang:1.11
+    pull: true
+    group: testing
+    commands:
+      - make test
+
+  build:
+    image: golang:1.11
+    pull: true
+    group: testing
+    commands:
+      - make docker_build
+      - make tar
+
   # deploy to staging, listen master branch
   scp_dev:
     image: appleboy/drone-scp
     pull: true
-    host: hook.tonka.sh
+    host: dev.fullinn.tw
     port: 22
     username: deploy
-    command_timeout: 120
-    target: /home/deploy/drone-github/${DRONE_REPO}
+    target: /home/deploy/drone/${DRONE_REPO}
     secrets:
       - source: deploy_key
         target: scp_key
@@ -30,7 +52,7 @@ pipeline:
   ssh_dev:
     image: appleboy/drone-ssh
     pull: true
-    host: hook.tonka.sh
+    host: dev.fullinn.tw
     port: 22
     username: deploy
     command_timeout: 120
@@ -39,12 +61,11 @@ pipeline:
         target: ssh_key
     script:
       - rm -rf ${DRONE_REPO} && mkdir -p ${DRONE_REPO}
-      - tar -zxmf /home/deploy/drone-github/${DRONE_REPO}/release.tar.gz -C ${DRONE_REPO}
-      - cd ${DRONE_REPO} && docker-compose up
+      - tar -zxmf /home/deploy/drone/${DRONE_REPO}/release.tar.gz -C ${DRONE_REPO}
+      - cd ${DRONE_REPO} && make dev
     when:
       branch: master
       local: false
-
 
   discord:
     image: appleboy/drone-discord

@@ -9,11 +9,34 @@ type server struct {
 	Host string
 	Addr string
 	Key  string
+	Root string
+}
+
+type logs struct {
+	Color  bool
+	Debug  bool
+	Pretty bool
+}
+
+// ContextKey for context package
+type ContextKey string
+
+func (c ContextKey) String() string {
+	return "backend context key " + string(c)
 }
 
 var (
+	// Debug represents the flag to enable or disable debug logging.
+	Debug bool
+
 	// Server represents the informations about the server bindings.
 	Server = &server{}
+
+	// ContextKeyUser for user
+	ContextKeyUser = ContextKey("user")
+
+	// Logs for zerolog
+	Logs = &logs{}
 )
 
 // Init load .env file

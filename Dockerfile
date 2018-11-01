@@ -1,16 +1,13 @@
-FROM golang:1.11
+FROM alpine:3.7
 
 LABEL maintainer="Tony Lee <tungsheng@gmail.com>"
 
-ADD . /go/src
+RUN apk add --no-cache ca-certificates tzdata && \
+  rm -rf /var/cache/apk/*
 
-EXPOSE 3003 9091
+EXPOSE 3003
 
-WORKDIR /go/src
+ADD bin/gohook /
 
-RUN go get -u github.com/ipfs/go-ipfs
-RUN go get -u github.com/joho/godotenv
-RUN go get -u github.com/rs/zerolog/log
-RUN go get -u github.com/segmentio/go-env
-RUN go get -u gopkg.in/go-playground/webhooks.v5/bitbucket
-RUN go run main.go
+ENTRYPOINT ["/go-hook"]
+CMD ["server"]
