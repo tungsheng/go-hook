@@ -7,7 +7,7 @@ RUN apk add --no-cache ca-certificates tzdata && \
 
 EXPOSE 3003
 
-ADD bin/gohook /
+ADD bin/go-hook /
 
 ENTRYPOINT ["/go-hook"]
 CMD ["server"]
