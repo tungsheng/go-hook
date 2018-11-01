@@ -71,6 +71,18 @@
 			"versionExact": "v1.3.0"
 		},
 		{
+			"checksumSHA1": "Oq4jGEG/PU9fVARvuUksiEDT3B8=",
+			"path": "github.com/go-hook/config",
+			"revision": "e50c7d0f41cd94e76b61fab8fa151fbe5c03d64a",
+			"revisionTime": "2018-11-01T08:12:43Z"
+		},
+		{
+			"checksumSHA1": "SMoTOzp32Oi4qHLFluhtbnbNxGY=",
+			"path": "github.com/go-hook/router",
+			"revision": "e50c7d0f41cd94e76b61fab8fa151fbe5c03d64a",
+			"revisionTime": "2018-11-01T08:12:43Z"
+		},
+		{
 			"checksumSHA1": "GaJLoEuMGnP5ofXvuweAI4wx06U=",
 			"path": "github.com/golang/protobuf/proto",
 			"revision": "d3de96c4c28ef8af3aa1a892fc481e0f103c01ff",
