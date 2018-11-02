@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/rs/zerolog/log"
 	"github.com/tungsheng/go-hook/config"
 	"github.com/tungsheng/go-hook/router/middleware/header"
 	"github.com/tungsheng/go-hook/router/middleware/logger"
@@ -73,6 +74,7 @@ func post(url string, jsonData []byte) string {
 }
 
 func handleTest(c *gin.Context) {
+	log.Info().Msg("Discord test!")
 	c.JSON(200, gin.H{
 		"message": "pong test",
 	})
