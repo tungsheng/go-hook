@@ -45,7 +45,7 @@ func Load() http.Handler {
 	{
 		root.GET("/test", handleTest)
 		root.GET("/disc", handleDiscordGet)
-		root.POST("/disc", handleDiscordPost)
+		root.POST("/bitbucket", handleBitBucket)
 		root.POST("/discord/:id/:token", handleDiscord)
 	}
 
@@ -88,13 +88,11 @@ func handleDiscordGet(c *gin.Context) {
 	})
 }
 
-func handleDiscordPost(c *gin.Context) {
-	accessToken := c.Query("access_token")
+func handleBitBucket(c *gin.Context) {
 	var payload bitbucket.RepoPushPayload
 
 	c.BindJSON(&payload)
 	c.JSON(http.StatusOK, gin.H{
-		"message":    fmt.Sprintf("access_token = %s", accessToken),
 		"push":       payload.Push,
 		"repository": payload.Repository,
 		"actor":      payload.Actor,
