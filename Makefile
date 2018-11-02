@@ -42,11 +42,11 @@ check_image:
 
 .PHONY: dev
 dev: build_image check_image
-	docker run -d --name $(DEPLOY_IMAGE) --env-file env/env.$@ --net host -p 3003:3003 --log-opt max-size=10m --log-opt max-file=10 --restart always $(DEPLOY_ACCOUNT)/$(DEPLOY_IMAGE)
+	docker run -d --name $(DEPLOY_IMAGE) --env-file env/env.$@ --net host --log-opt max-size=10m --log-opt max-file=10 --restart always $(DEPLOY_ACCOUNT)/$(DEPLOY_IMAGE)
 
 .PHONY: prod
 prod: build_image check_image
-	docker run -d --name $(DEPLOY_IMAGE) --env-file env/env.$@ --net host -p 3003:3003 --log-opt max-size=10m --log-opt max-file=10 --restart always $(DEPLOY_ACCOUNT)/$(DEPLOY_IMAGE)
+	docker run -d --name $(DEPLOY_IMAGE) --env-file env/env.$@ --net host --log-opt max-size=10m --log-opt max-file=10 --restart always $(DEPLOY_ACCOUNT)/$(DEPLOY_IMAGE)
 
 .PHONY: generate
 generate:
