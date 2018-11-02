@@ -45,6 +45,7 @@ func Load() http.Handler {
 	{
 		root.GET("/test", handleTest)
 		root.GET("/disc", handleDiscordGet)
+		root.POST("/disc", handleDiscordPost)
 		root.POST("/discord/:id/:token", handleDiscord)
 	}
 
@@ -75,15 +76,28 @@ func post(url string, jsonData []byte) string {
 
 func handleTest(c *gin.Context) {
 	log.Info().Msg("Discord test!")
-	c.JSON(200, gin.H{
+	c.JSON(http.StatusOK, gin.H{
 		"message": "pong test",
 	})
 }
 
 func handleDiscordGet(c *gin.Context) {
 	accessToken := c.Query("access_token")
-	c.JSON(200, gin.H{
+	c.JSON(http.StatusOK, gin.H{
 		"message": fmt.Sprintf("access_token = %s", accessToken),
+	})
+}
+
+func handleDiscordPost(c *gin.Context) {
+	accessToken := c.Query("access_token")
+	var payload bitbucket.RepoPushPayload
+
+	c.BindJSON(&payload)
+	c.JSON(http.StatusOK, gin.H{
+		"message":    fmt.Sprintf("access_token = %s", accessToken),
+		"push":       payload.Push,
+		"repository": payload.Repository,
+		"actor":      payload.Actor,
 	})
 }
 
@@ -123,7 +137,7 @@ func handleDiscord(c *gin.Context) {
 	post(url, dataJSON)
 	pJSON, _ := json.Marshal(payload)
 
-	c.JSON(200, gin.H{
+	c.JSON(http.StatusOK, gin.H{
 		"message": "pong",
 		"data":    pJSON,
 	})
