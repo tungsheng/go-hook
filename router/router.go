@@ -44,7 +44,7 @@ func Load() http.Handler {
 	root := e.Group("/")
 	{
 		root.GET("/test", handleTest)
-		root.GET("/disc", handleDiscordGet)
+		root.GET("/disco", handleDiscordGet)
 		root.POST("/bitbucket", handleBitBucket)
 		root.POST("/discord/:id/:token", handleDiscord)
 	}
