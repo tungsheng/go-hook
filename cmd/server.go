@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/go-hook/config"
-	"github.com/go-hook/router"
 	"github.com/rs/zerolog/log"
+	"github.com/tungsheng/go-hook/config"
+	"github.com/tungsheng/go-hook/router"
 	cli "gopkg.in/urfave/cli.v2"
 )
 

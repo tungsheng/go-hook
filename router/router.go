@@ -8,11 +8,11 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/tungsheng/go-hook/config"
+	"github.com/tungsheng/go-hook/router/middleware/header"
+	"github.com/tungsheng/go-hook/router/middleware/logger"
+
 	"github.com/gin-gonic/gin"
-	"github.com/go-hook/config"
-	"github.com/go-hook/router/middleware/header"
-	"github.com/go-hook/router/middleware/logger"
-	"github.com/rs/zerolog/log"
 	"gopkg.in/go-playground/webhooks.v5/bitbucket"
 )
 
@@ -43,7 +43,7 @@ func Load() http.Handler {
 	root := e.Group("/")
 	{
 		root.GET("/test", handleTest)
-		root.GET("/discord", handleDiscordGet)
+		root.GET("/disc", handleDiscordGet)
 		root.POST("/discord/:id/:token", handleDiscord)
 	}
 
@@ -80,7 +80,9 @@ func handleTest(c *gin.Context) {
 
 func handleDiscordGet(c *gin.Context) {
 	accessToken := c.Query("access_token")
-	log.Info().Msg(accessToken)
+	c.JSON(200, gin.H{
+		"message": fmt.Sprintf("access_token = %s", accessToken),
+	})
 }
 
 func handleDiscord(c *gin.Context) {

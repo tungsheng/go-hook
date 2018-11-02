@@ -4,11 +4,11 @@ import (
 	"os"
 	"time"
 
-	"github.com/go-hook/config"
 	"github.com/joho/godotenv"
 	_ "github.com/joho/godotenv/autoload"
 	"github.com/rs/zerolog"
 	zlog "github.com/rs/zerolog/log"
+	"github.com/tungsheng/go-hook/config"
 	cli "gopkg.in/urfave/cli.v2"
 )
 
