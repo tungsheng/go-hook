@@ -1,6 +1,6 @@
 workspace:
   base: /go/src
-  path: github.com/tungsheng/go-hook
+  path: github.com/tungsheng/gohook
 
 clone:
   git:

@@ -9,9 +9,9 @@ import (
 	"time"
 
 	"github.com/rs/zerolog/log"
-	"github.com/tungsheng/go-hook/config"
-	"github.com/tungsheng/go-hook/router/middleware/header"
-	"github.com/tungsheng/go-hook/router/middleware/logger"
+	"github.com/tungsheng/gohook/config"
+	"github.com/tungsheng/gohook/router/middleware/header"
+	"github.com/tungsheng/gohook/router/middleware/logger"
 
 	"github.com/gin-gonic/gin"
 	"gopkg.in/go-playground/webhooks.v5/bitbucket"

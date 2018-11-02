@@ -1,5 +1,5 @@
 DIST := dist
-EXECUTABLE := go-hook
+EXECUTABLE := gohook
 
 DEPLOY_ACCOUNT := tonka
 DEPLOY_IMAGE := $(EXECUTABLE)

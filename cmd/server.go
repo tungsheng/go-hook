@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/rs/zerolog/log"
-	"github.com/tungsheng/go-hook/config"
-	"github.com/tungsheng/go-hook/router"
+	"github.com/tungsheng/gohook/config"
+	"github.com/tungsheng/gohook/router"
 	cli "gopkg.in/urfave/cli.v2"
 )
 

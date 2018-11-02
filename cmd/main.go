@@ -8,7 +8,7 @@ import (
 	_ "github.com/joho/godotenv/autoload"
 	"github.com/rs/zerolog"
 	zlog "github.com/rs/zerolog/log"
-	"github.com/tungsheng/go-hook/config"
+	"github.com/tungsheng/gohook/config"
 	cli "gopkg.in/urfave/cli.v2"
 )
 
