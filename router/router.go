@@ -10,12 +10,15 @@ import (
 
 	"github.com/rs/zerolog/log"
 	"github.com/tungsheng/gohook/config"
+	"github.com/tungsheng/gohook/model"
 	"github.com/tungsheng/gohook/router/middleware/header"
 	"github.com/tungsheng/gohook/router/middleware/logger"
 
 	"github.com/gin-gonic/gin"
 	"gopkg.in/go-playground/webhooks.v5/bitbucket"
 )
+
+const color = 14177041
 
 type discordMsg struct {
 	Content  string `json:"content"`
@@ -44,7 +47,7 @@ func Load() http.Handler {
 	root := e.Group("/")
 	{
 		root.GET("/test", handleTest)
-		root.GET("/disco", handleDiscordGet)
+		root.GET("/disc", handleDiscordGet)
 		root.POST("/bitbucket", handleBitBucket)
 		root.POST("/discord/:id/:token", handleDiscord)
 	}
@@ -90,54 +93,85 @@ func handleDiscordGet(c *gin.Context) {
 
 func handleBitBucket(c *gin.Context) {
 	var payload bitbucket.RepoPushPayload
-
 	c.BindJSON(&payload)
+
+	author := model.Author{
+		Name:    payload.Actor.DisplayName,
+		URL:     payload.Actor.Links.HTML.Href,
+		IconURL: payload.Actor.Links.Avatar.Href,
+	}
+	footer := model.Footer{
+		Text:    "Powered by Gohook",
+		IconURL: "https://bitbucket.org/account/torchchurch/avatar/",
+	}
+	emd := model.Embed{
+		Author:      author,
+		Title:       payload.Push.Changes[0].New.Target.Message,
+		URL:         payload.Push.Changes[0].New.Target.Links.HTML.Href,
+		Description: fmt.Sprintf("%s pushed to %s", author.Name, payload.Push.Changes[0].New.Name),
+		Color:       color,
+		Footer:      footer,
+	}
+	wh := model.Webhook{
+		Embeds: []model.Embed{emd},
+	}
+
 	c.JSON(http.StatusOK, gin.H{
-		"push":       payload.Push,
-		"repository": payload.Repository,
-		"actor":      payload.Actor,
+		"webhook": wh,
 	})
 }
 
 func handleDiscord(c *gin.Context) {
+	var payload bitbucket.RepoPushPayload
+	c.BindJSON(&payload)
 
-	hook, _ := bitbucket.New(bitbucket.Options.UUID("k3jhvK38dvBAkOk482P"))
-
-	payload, err := hook.Parse(
-		c.Request,
-		bitbucket.RepoPushEvent,
-		bitbucket.PullRequestCreatedEvent,
-		bitbucket.PullRequestUpdatedEvent,
-		bitbucket.PullRequestApprovedEvent,
-		bitbucket.PullRequestUnapprovedEvent,
-		bitbucket.PullRequestMergedEvent,
-		bitbucket.PullRequestDeclinedEvent,
-		bitbucket.PullRequestCommentCreatedEvent,
-		bitbucket.PullRequestCommentUpdatedEvent,
-		bitbucket.PullRequestCommentDeletedEvent,
-	)
-
-	if err != nil {
-		if err == bitbucket.ErrEventNotFound {
-			// ok event wasn;t one of the ones asked to be parsed
-		}
+	author := model.Author{
+		Name:    payload.Actor.DisplayName,
+		URL:     payload.Actor.Links.HTML.Href,
+		IconURL: payload.Actor.Links.Avatar.Href,
+	}
+	footer := model.Footer{
+		Text:    "Powered by Gohook",
+		IconURL: "https://bitbucket.org/account/torchchurch/avatar/",
+	}
+	emd := model.Embed{
+		Author:      author,
+		Title:       payload.Push.Changes[0].New.Target.Message,
+		URL:         payload.Push.Changes[0].New.Target.Links.HTML.Href,
+		Description: fmt.Sprintf("%s pushed to %s", author.Name, payload.Push.Changes[0].New.Name),
+		Color:       color,
+		Footer:      footer,
+	}
+	wh := model.Webhook{
+		Embeds: []model.Embed{emd},
 	}
 
 	id := c.Param("id")
 	token := c.Param("token")
 	url := fmt.Sprintf("https://discordapp.com/api/webhooks/%s/%s", id, token)
-	data := discordMsg{
-		Content:  "test content",
-		Username: "bitbucket",
-	}
+	whJSON, _ := json.Marshal(wh)
 
-	dataJSON, _ := json.Marshal(data)
-	post(url, dataJSON)
-	pJSON, _ := json.Marshal(payload)
+	var jsonStr = []byte(whJSON)
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("User-Agent", "Gohook-Bitbucket")
+
+	client := &http.Client{
+		Timeout: time.Second * 10,
+	}
+	resp, err := client.Do(req)
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+	fmt.Println("response Status:", resp.Status)
+	fmt.Println("response Headers:", resp.Header)
+	body, _ := ioutil.ReadAll(resp.Body)
 
 	c.JSON(http.StatusOK, gin.H{
-		"message": "pong",
-		"data":    pJSON,
+		"message": "Successful!",
+		"wh":      wh,
+		"body":    string(body),
 	})
 
 }
