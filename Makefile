@@ -5,6 +5,7 @@ DEPLOY_ACCOUNT := tonka
 DEPLOY_IMAGE := $(EXECUTABLE)
 GOFMT ?= gofmt "-s"
 
+TEST ?= tests/cover.out
 TARGETS ?= linux darwin windows
 ARCHS ?= amd64 386
 PACKAGES ?= $(shell go list ./... | grep -v /vendor/)
@@ -162,7 +163,8 @@ unused-check:
 	for PKG in $(PACKAGES); do unused $$PKG || exit 1; done;
 
 test:
-	for PKG in $(PACKAGES); do go test -v $$PKG || exit 1; done;
+	mkdir -p tests
+	for PKG in $(PACKAGES); do go test -coverprofile=tests/cover.out -v $$PKG || exit 1; done;
 
 .PHONY: test-vendor
 test-vendor:

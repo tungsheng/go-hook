@@ -38,7 +38,7 @@ pipeline:
     image: plugins/codecov
     secrets: [ codecov_token ]
     paths:
-      - tests/output/coverage
+      - tests/cover.out
 
   build:
     image: golang:1.11
