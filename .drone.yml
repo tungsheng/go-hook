@@ -34,6 +34,10 @@ pipeline:
     commands:
       - make test
 
+  codecov:
+    image: robertstettner/drone-codecov
+    secrets: [ codecov_token ]
+
   build:
     image: golang:1.11
     pull: true
