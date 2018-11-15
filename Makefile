@@ -164,7 +164,7 @@ unused-check:
 test:
 	rm -rf tests
 	mkdir -p tests
-	go test -coverprofile=tests/cover.txt -covermode=atomic -v ./... || exit 1;
+	go test -v -coverprofile=tests/cover.out -covermode=atomic ./...
 
 .PHONY: test-vendor
 test-vendor:
