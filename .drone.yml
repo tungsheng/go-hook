@@ -35,7 +35,7 @@ pipeline:
       - make test
 
   codecov:
-    image: robertstettner/drone-codecov
+    image: plugins/codecov
     secrets: [ codecov_token ]
 
   build:
