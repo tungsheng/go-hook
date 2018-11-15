@@ -163,8 +163,9 @@ unused-check:
 	for PKG in $(PACKAGES); do unused $$PKG || exit 1; done;
 
 test:
+	rm -rf tests
 	mkdir -p tests
-	for PKG in $(PACKAGES); do go test -coverprofile=tests/cover.out -v $$PKG || exit 1; done;
+	for PKG in $(PACKAGES); do go test -cover -covermode=atomic $$PKG >> tests/cover.txt || exit 1; done;
 
 .PHONY: test-vendor
 test-vendor:
